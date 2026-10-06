@@ -1,0 +1,86 @@
+@if (store.loading() && !store.stats()) {
+  <p class="loading">Cargando operaciones…</p>
+} @else {
+  <section class="kpis">
+    <article>
+      <span>Devices</span>
+      <strong>{{ store.stats()?.total_devices ?? 0 }}</strong>
+    </article>
+    <article>
+      <span>Online</span>
+      <strong class="ok">{{ store.stats()?.online_devices ?? 0 }}</strong>
+    </article>
+    <article>
+      <span>Offline</span>
+      <strong>{{ store.stats()?.offline_devices ?? 0 }}</strong>
+    </article>
+    <article>
+      <span>Alertas abiertas</span>
+      <strong class="warn">{{ store.stats()?.open_alerts ?? 0 }}</strong>
+    </article>
+    <article>
+      <span>Críticas / High</span>
+      <strong class="crit">{{ store.stats()?.critical_alerts ?? 0 }}</strong>
+    </article>
+    <article>
+      <span>Mediciones / h</span>
+      <strong>{{ store.stats()?.measurements_last_hour ?? 0 }}</strong>
+    </article>
+  </section>
+
+  <section class="grid">
+    <app-live-chart [points]="store.liveTemps()" />
+
+    <div class="panel alerts-panel" [class.flash]="store.flashAlertId()">
+      <div class="panel-head">
+        <h2>Alertas recientes</h2>
+        <a routerLink="/alerts">Ver todas</a>
+      </div>
+      @if (store.alerts().length === 0) {
+        <p class="muted">Sin alertas abiertas.</p>
+      } @else {
+        <ul>
+          @for (alert of store.alerts().slice(0, 6); track alert.id) {
+            <li [class.new]="store.flashAlertId() === alert.id">
+              <span class="sev" [attr.data-sev]="alert.severity">{{ alert.severity }}</span>
+              <div>
+                <strong>{{ alert.device_code || ('#' + alert.device_id) }}</strong>
+                <p>{{ alert.message }}</p>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Últimas mediciones</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Device</th>
+            <th>Temp</th>
+            <th>Humedad</th>
+            <th>Presión</th>
+            <th>Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (m of store.recentMeasurements().slice(0, 10); track m.id) {
+            <tr>
+              <td>{{ m.device_code || m.device_id }}</td>
+              <td>{{ m.temperature | number: '1.1-1' }}°C</td>
+              <td>{{ m.humidity | number: '1.1-1' }}%</td>
+              <td>{{ m.pressure | number: '1.1-1' }}</td>
+              <td>{{ m.timestamp | date: 'HH:mm:ss' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}

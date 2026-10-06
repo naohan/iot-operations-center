@@ -1,0 +1,33 @@
+<section class="login">
+  <form (ngSubmit)="submit()">
+    <div class="brand">
+      <span>IOC</span>
+      <h1>IoT Operations Center</h1>
+      <p>Acceso con JWT + RBAC</p>
+    </div>
+
+    <label>
+      Email
+      <input type="email" name="email" [(ngModel)]="email" required autocomplete="username" />
+    </label>
+
+    <label>
+      Password
+      <input type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
+    </label>
+
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+
+    <button type="submit" [disabled]="loading()">
+      {{ loading() ? 'Entrando…' : 'Entrar' }}
+    </button>
+
+    <div class="hints">
+      <p><code>admin&#64;example.com</code> / admin123</p>
+      <p><code>operator&#64;example.com</code> / operator123</p>
+      <p><code>viewer&#64;example.com</code> / viewer123</p>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,48 @@
+<div class="shell">
+  <aside class="rail">
+    <div class="brand">
+      <span class="brand-mark">IOC</span>
+      <div>
+        <p class="brand-name">IoT Ops</p>
+        <p class="brand-sub">Operations Center</p>
+      </div>
+    </div>
+
+    <nav>
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/devices" routerLinkActive="active">Devices</a>
+      <a routerLink="/alerts" routerLinkActive="active">Alerts</a>
+    </nav>
+
+    <div class="user-box">
+      <strong>{{ auth.user()?.email }}</strong>
+      <span>{{ auth.user()?.role }}</span>
+      <button type="button" (click)="logout()">Salir</button>
+    </div>
+
+    <div class="rail-foot">
+      <span class="live-dot" [class.on]="store.connected()"></span>
+      <span>{{ store.connected() ? 'Live MQTT→WS' : 'Reconectando…' }}</span>
+    </div>
+  </aside>
+
+  <main class="stage">
+    <header class="topbar">
+      <div>
+        <h1>IoT Operations Center</h1>
+        <p>Telemetría en tiempo real · FastAPI · MQTT · PostgreSQL · ML</p>
+      </div>
+      <div class="top-stats">
+        <div>
+          <span class="k">Online</span>
+          <strong>{{ store.onlineCount() }}</strong>
+        </div>
+        <div>
+          <span class="k">Alertas</span>
+          <strong [class.warn]="store.openAlerts() > 0">{{ store.openAlerts() }}</strong>
+        </div>
+      </div>
+    </header>
+    <router-outlet />
+  </main>
+</div>

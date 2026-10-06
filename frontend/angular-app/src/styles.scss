@@ -1,0 +1,59 @@
+:root {
+  --bg-0: #071318;
+  --bg-1: #0b1c22;
+  --text: #e7f2f4;
+  --text-soft: #c5d6da;
+  --muted: #7f98a0;
+  --line: rgba(154, 190, 198, 0.16);
+  --accent: #2ec4b6;
+  --ok: #34d399;
+  --warn: #fb923c;
+  --crit: #f87171;
+  --font-display: "Sora", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--text);
+  font-family: var(--font-display);
+  background:
+    radial-gradient(ellipse at 10% -10%, rgba(46, 196, 182, 0.16), transparent 45%),
+    radial-gradient(ellipse at 90% 0%, rgba(56, 120, 140, 0.2), transparent 40%),
+    linear-gradient(160deg, var(--bg-0), var(--bg-1) 55%, #09161c);
+  background-attachment: fixed;
+}
+
+body {
+  background-image:
+    linear-gradient(rgba(7, 19, 24, 0.78), rgba(7, 19, 24, 0.88)),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 31px,
+      rgba(46, 196, 182, 0.03) 31px,
+      rgba(46, 196, 182, 0.03) 32px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 31px,
+      rgba(46, 196, 182, 0.03) 31px,
+      rgba(46, 196, 182, 0.03) 32px
+    ),
+    radial-gradient(ellipse at 10% -10%, rgba(46, 196, 182, 0.16), transparent 45%),
+    radial-gradient(ellipse at 90% 0%, rgba(56, 120, 140, 0.2), transparent 40%),
+    linear-gradient(160deg, var(--bg-0), var(--bg-1) 55%, #09161c);
+}
+
+button,
+input {
+  font: inherit;
+}

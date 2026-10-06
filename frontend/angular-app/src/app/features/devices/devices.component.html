@@ -1,0 +1,25 @@
+<section class="panel">
+  <div class="panel-head">
+    <h2>Devices</h2>
+    <span>{{ devices().length }} registrados</span>
+  </div>
+
+  <div class="device-grid">
+    @for (device of devices(); track device.id) {
+      <a class="device" [routerLink]="['/devices', device.id]">
+        <div class="row">
+          <strong>{{ device.device_code }}</strong>
+          <span class="status" [attr.data-status]="device.status">{{ device.status }}</span>
+        </div>
+        <p>{{ device.name }}</p>
+        <p class="meta">{{ device.location || 'Sin ubicación' }}</p>
+        <p class="meta">
+          Last seen:
+          {{ device.last_seen_at ? (device.last_seen_at | date: 'HH:mm:ss') : '—' }}
+        </p>
+      </a>
+    } @empty {
+      <p class="muted">No hay dispositivos. Arranca el simulador.</p>
+    }
+  </div>
+</section>

@@ -1,0 +1,20 @@
+<div class="chart">
+  <div class="chart-meta">
+    <span>Temperatura en vivo</span>
+    <strong>{{ lastValue === null ? '—' : lastValue.toFixed(1) + '°C' }}</strong>
+  </div>
+  @if (points.length < 2) {
+    <p class="empty">Esperando telemetría…</p>
+  } @else {
+    <svg [attr.viewBox]="'0 0 1000 ' + height" preserveAspectRatio="none" role="img" aria-label="Gráfico de temperatura">
+      <defs>
+        <linearGradient id="fillTemp" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(46,196,182,0.35)" />
+          <stop offset="100%" stop-color="rgba(46,196,182,0)" />
+        </linearGradient>
+      </defs>
+      <path class="area" [attr.d]="areaD" />
+      <path class="line" [attr.d]="pathD" />
+    </svg>
+  }
+</div>

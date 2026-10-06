@@ -1,0 +1,45 @@
+<p><a routerLink="/devices">← Devices</a></p>
+
+@if (loading()) {
+  <p class="muted">Cargando dispositivo…</p>
+} @else if (!device()) {
+  <p class="muted">Dispositivo no encontrado.</p>
+} @else {
+  <section class="hero">
+    <div>
+      <h2>{{ device()!.device_code }}</h2>
+      <p>{{ device()!.name }} · {{ device()!.location || 'Sin ubicación' }}</p>
+    </div>
+    <span class="status" [attr.data-status]="device()!.status">{{ device()!.status }}</span>
+  </section>
+
+  <app-live-chart [points]="liveForDevice()" />
+
+  <section class="panel">
+    <h3>Historial reciente</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Temp</th>
+            <th>Humedad</th>
+            <th>Presión</th>
+            <th>Battery</th>
+            <th>Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (m of measurements().slice(0, 20); track m.id) {
+            <tr>
+              <td>{{ m.temperature | number: '1.1-1' }}°C</td>
+              <td>{{ m.humidity | number: '1.1-1' }}%</td>
+              <td>{{ m.pressure | number: '1.1-1' }}</td>
+              <td>{{ m.battery | number: '1.1-1' }}%</td>
+              <td>{{ m.timestamp | date: 'HH:mm:ss' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}

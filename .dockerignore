@@ -1,0 +1,12 @@
+**/node_modules
+**/dist
+**/.venv
+**/venv
+**/__pycache__
+**/.angular
+**/.git
+**/simulator/.venv
+**/*.pyc
+**/infrastructure/mosquitto/data
+**/infrastructure/mosquitto/log
+**/.env

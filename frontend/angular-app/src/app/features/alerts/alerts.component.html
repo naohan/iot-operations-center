@@ -1,0 +1,30 @@
+<section class="panel">
+  <div class="panel-head">
+    <h2>Alertas abiertas</h2>
+    <span>{{ store.alerts().length }}</span>
+  </div>
+
+  @if (store.alerts().length === 0) {
+    <p class="muted">Todo tranquilo. Sin alertas abiertas.</p>
+  } @else {
+    <ul>
+      @for (alert of store.alerts(); track alert.id) {
+        <li [class.new]="store.flashAlertId() === alert.id">
+          <div class="main">
+            <span class="sev" [attr.data-sev]="alert.severity">{{ alert.severity }}</span>
+            <div>
+              <strong>{{ alert.device_code || ('Device #' + alert.device_id) }}</strong>
+              <p>{{ alert.message }}</p>
+              <time>{{ alert.created_at | date: 'yyyy-MM-dd HH:mm:ss' }}</time>
+            </div>
+          </div>
+          @if (auth.canResolveAlerts()) {
+            <button type="button" (click)="resolve(alert.id)">Resolver</button>
+          } @else {
+            <span class="readonly">solo lectura</span>
+          }
+        </li>
+      }
+    </ul>
+  }
+</section>
