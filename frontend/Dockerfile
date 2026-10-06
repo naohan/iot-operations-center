@@ -4,7 +4,8 @@ WORKDIR /app
 COPY frontend/angular-app/package*.json ./
 RUN npm ci
 COPY frontend/angular-app/ ./
-RUN npm run build -- --configuration=production
+ARG NG_CONFIGURATION=production
+RUN npm run build -- --configuration=${NG_CONFIGURATION}
 
 # Serve with Nginx (+ reverse proxy a FastAPI)
 FROM nginx:1.27-alpine

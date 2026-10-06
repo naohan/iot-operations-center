@@ -1,0 +1,17 @@
+.env
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+node_modules/
+dist/
+.angular/
+*.log
+infrastructure/mosquitto/data/
+infrastructure/mosquitto/log/
+.idea/
+.vscode/
+
+# Notas técnicas internas. No forman parte del repositorio público.
+interno/
